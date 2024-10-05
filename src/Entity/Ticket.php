@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\Status;
 use App\Enum\Priority;
 use App\Repository\TicketRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -39,6 +41,17 @@ class Ticket
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    /**
+     * @var Collection<int, TicketStatusHistory>
+     */
+    #[ORM\OneToMany(targetEntity: TicketStatusHistory::class, mappedBy: 'ticker_id')]
+    private Collection $ticketStatusHistories;
+
+    public function __construct()
+    {
+        $this->ticketStatusHistories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +150,36 @@ class Ticket
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TicketStatusHistory>
+     */
+    public function getTicketStatusHistories(): Collection
+    {
+        return $this->ticketStatusHistories;
+    }
+
+    public function addTicketStatusHistory(TicketStatusHistory $ticketStatusHistory): static
+    {
+        if (!$this->ticketStatusHistories->contains($ticketStatusHistory)) {
+            $this->ticketStatusHistories->add($ticketStatusHistory);
+            $ticketStatusHistory->setTickerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicketStatusHistory(TicketStatusHistory $ticketStatusHistory): static
+    {
+        if ($this->ticketStatusHistories->removeElement($ticketStatusHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($ticketStatusHistory->getTickerId() === $this) {
+                $ticketStatusHistory->setTickerId(null);
+            }
+        }
 
         return $this;
     }
