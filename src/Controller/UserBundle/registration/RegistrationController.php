@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\UserBundle\Registration;
+namespace App\Controller\UserBundle\registration;
 
 use App\Entity\User;
 use App\Form\User\RegistrationFormType;

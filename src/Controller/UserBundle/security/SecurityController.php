@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\UserBundle\Security;
+namespace App\Controller\UserBundle\security;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
