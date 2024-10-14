@@ -13,10 +13,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+        $user->setCreatedAt(new \DateTimeImmutable());
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -32,10 +33,10 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home'); // TODO: Change redirection when HomeController is done
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('UserBundle/registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }
