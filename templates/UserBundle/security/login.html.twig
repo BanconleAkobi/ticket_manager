@@ -1,38 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+
+    <div class="container py-5">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right bg-body-tertiary" style="
+            backdrop-filter: blur(30px);
+            ">
+                    <div class="card-body p-5 shadow-5 text-center">
+                        <h1 class="fw-bold mb-5"> Connectez-vous </h1>
+                        <form action="{{ path("app_login")}}" method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">Vos identifiants ne sont pas corrects</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}  |   <a class="link-underline link-underline-opacity-0" href="{{ path('app_logout') }}">Se déconnecter ?</a>
+                                </div>
+                            {% endif %}
+
+                            <!-- email-->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <label class="form-label fw-bold fst-italic" for="username">Email</label>
+                                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required>
+                            </div>
+
+                            <!-- mot de passe -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <label class="form-label fw-bold fst-italic" for="password">Mot de passe:</label>
+                                <input class="form-control " type="password" id="password" name="_password" required>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <!-- la Checkbox  -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input type="checkbox" name="_remember_me" id="_remember_me" class="form-check-input me-2">
+                                <label  class="form-check-label" for="_remember_me">Se rappeler de moi</label>
+                            </div>
+                            <a href="{{ path('app_register') }}" class="text-info text-center link-underline link-underline-opacity-0">Vous n'avez pas de compte ?</a><br><br>
+
+                            <!-- Submit button -->
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">
+                                Valider
+                            </button>
+
+
+                        </form>
+                    </div>
+                </div>
             </div>
-        {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+            <div class="col-lg-6 mb-5 mt-5 mb-lg-0">
+                <img src="{{ asset('img/login_logo.jpeg') }}" class="w-100 rounded-4 shadow-4 movement"
+                     alt="image de support ticketing" />
             </div>
-
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+        </div>
+    </div>
 {% endblock %}
