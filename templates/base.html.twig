@@ -3,17 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Ticket_manager!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-
-        {# les liens css #}
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css')}}">
 
         {# fin_liens #}
         {% block stylesheets %}
+            <!--Pour importer les fichiers css compilés-->
+            {{ encore_entry_link_tags('app') }}
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+
+            <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+            <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
         {% endblock %}
 
         {% block javascripts %}
+            <!--Pour importer les fichiers js compilés-->
+
+            {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
