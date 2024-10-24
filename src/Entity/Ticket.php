@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -31,9 +32,11 @@ class Ticket
     private ?Priority $priority = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $assigned_to = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan('today')]
     private ?\DateTimeInterface $deadline = null;
 
     #[ORM\Column]
@@ -47,6 +50,10 @@ class Ticket
      */
     #[ORM\OneToMany(targetEntity: TicketStatusHistory::class, mappedBy: 'ticker_id')]
     private Collection $ticketStatusHistories;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $created_by = null;
 
     public function __construct()
     {
@@ -166,7 +173,7 @@ class Ticket
     {
         if (!$this->ticketStatusHistories->contains($ticketStatusHistory)) {
             $this->ticketStatusHistories->add($ticketStatusHistory);
-            $ticketStatusHistory->setTickerId($this);
+            $ticketStatusHistory->setTicketId($this);
         }
 
         return $this;
@@ -176,10 +183,22 @@ class Ticket
     {
         if ($this->ticketStatusHistories->removeElement($ticketStatusHistory)) {
             // set the owning side to null (unless already changed)
-            if ($ticketStatusHistory->getTickerId() === $this) {
-                $ticketStatusHistory->setTickerId(null);
+            if ($ticketStatusHistory->getTicketId() === $this) {
+                $ticketStatusHistory->setTicketId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): static
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

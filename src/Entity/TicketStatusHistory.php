@@ -16,7 +16,7 @@ class TicketStatusHistory
 
     #[ORM\ManyToOne(inversedBy: 'ticketStatusHistories')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Ticket $ticker_id = null;
+    private ?Ticket $ticket_id = null;
 
     #[ORM\Column(type: 'string', enumType: Status::class)]
     private ?Status $status = null;
@@ -33,14 +33,14 @@ class TicketStatusHistory
         return $this->id;
     }
 
-    public function getTickerId(): ?Ticket
+    public function getTicketId(): ?Ticket
     {
-        return $this->ticker_id;
+        return $this->ticket_id;
     }
 
-    public function setTickerId(?Ticket $ticker_id): static
+    public function setTicketId(?Ticket $ticket_id): static
     {
-        $this->ticker_id = $ticker_id;
+        $this->ticket_id = $ticket_id;
 
         return $this;
     }
