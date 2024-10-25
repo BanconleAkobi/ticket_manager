@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'first_options' => [
                     'label' => 'Password',
+                    'toggle' => true,
                     'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
@@ -40,7 +41,10 @@ class RegistrationFormType extends AbstractType
                     ],
                     
                 ],
-                'second_options' => ['label' => 'Repeat Password'],
+                'second_options' => [
+                    'label' => 'Repeat Password',
+                    'toggle' => true
+                ],
             ])
 
             // ->add('plainPassword', PasswordType::class, [
