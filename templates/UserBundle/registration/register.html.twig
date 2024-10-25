@@ -17,11 +17,11 @@
                         </div>
 
                         {{ form_start(registrationForm) }}
-                                    {{ form_row(registrationForm.email) }}
-                                    {{ form_row(registrationForm.plainPassword, {
-                                        label: 'Password'
-                                    }) }}
 
+                        <div class="text-center">
+                                    {{ form_row(registrationForm.email) }}
+                                    {{ form_row(registrationForm.plainPassword) }}
+                        </div>
 
                             <!-- bouton de submit -->
                             <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">

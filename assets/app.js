@@ -7,6 +7,13 @@ import './bootstrap';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
+import './js/argon-dashboard'
+import './js/plugins/bootstrap-notify.js'
+import './js/plugins/perfect-scrollbar.min.js'
+import './js/plugins/smooth-scrollbar.min.js'
+
+
+
 
 import './vendor/bootstrap/dist/css/bootstrap.min.css';
 
