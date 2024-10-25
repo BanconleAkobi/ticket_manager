@@ -21,6 +21,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'label_attr' => ['class' => 'text-center-label'],
                 'attr' => [
                     'placeholder' => 'Enter your email address',
                 ],
@@ -32,6 +33,9 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'first_options' => [
                     'label' => 'Password',
+                    'label_attr' =>[
+                        'class' => 'text-center-label',
+                    ],
 
                     'attr' => [
                         'autocomplete' => 'new-password',
@@ -54,6 +58,10 @@ class RegistrationFormType extends AbstractType
 
                 'second_options' => [
                     'label' => 'Repeat Password',
+
+                    'label_attr' =>[
+                        'class' => 'text-center-label',
+                    ],
                     'toggle' => true
                 ],
             ])
