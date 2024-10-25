@@ -3,11 +3,14 @@
 namespace App\Form\User;
 
 use App\Entity\User;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -21,10 +24,24 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'label_attr' => ['class' => 'text-center-label'],
+                'label_attr' => ['class' => 'text-center-label text-nowrap'],
                 'attr' => [
                     'placeholder' => 'Enter your email address',
                 ],
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Firstname',
+                'label_attr' => ['class' => 'text-center-label text-nowrap'],
+                'attr' => [
+                    'placeholder' => 'Enter your firstname',
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'Lastname',
+                'label_attr' => ['class' => 'text-center-label text-nowrap'],
+                'attr' => [
+                    'placeholder' => 'Enter your lastname',
+                ]
             ])
 
             ->add('plainPassword', RepeatedType::class, [
@@ -33,9 +50,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'first_options' => [
                     'label' => 'Password',
-                    'label_attr' =>[
-                        'class' => 'text-center-label',
-                    ],
+                    'label_attr' => ['class' => 'text-center-label text-nowrap'],
+
 
                     'attr' => [
                         'autocomplete' => 'new-password',
@@ -60,11 +76,12 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Repeat Password',
 
                     'label_attr' =>[
-                        'class' => 'text-center-label',
+                        'class' => 'text-center-label text-nowrap',
                     ],
                     'toggle' => true
                 ],
             ])
+
 
             // ->add('plainPassword', PasswordType::class, [
             //     // instead of being set onto the object directly,

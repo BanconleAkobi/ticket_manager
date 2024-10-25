@@ -15,12 +15,30 @@
                         <div class="my-2 alert-danger">
                             {{ form_errors(registrationForm) }}
                         </div>
-
                         {{ form_start(registrationForm) }}
-                        {{ form_row(registrationForm.email) }}
-                        {{ form_row(registrationForm.plainPassword, {
-                            label: 'Password'
-                        }) }}
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.firstname) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.lastname) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(registrationForm.email) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password'
+                                    }) }}
+                                </div>
+                            </div>
+                        </div>
 
 
                         <!-- bouton de submit -->
@@ -30,8 +48,8 @@
                         <br>
                         <a href="{{ path('app_login') }}" class="text-info text-center link-underline link-underline-opacity-0">Déjà inscrit ?</a><br><br>
 
-
                         {{ form_end(registrationForm) }}
+
                     </div>
                 </div>
             </div>

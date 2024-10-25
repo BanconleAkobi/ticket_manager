@@ -130,4 +130,24 @@ class TicketController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+
+
+    #[Route('/tickets/list' , name:'app_ticket_list')]
+    public function ticketList(Request $request, TicketRepository $repository): Response
+    {
+        $user = $this->getUser();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $tickets = $repository->findAll();
+        }elseif($this->isGranted('ROLE_TECH_SUPPORT')){
+            $tickets = $repository->findBy(['assigned_by' => $user]);
+        }elseif($this->isGranted('ROLE_USER')){
+            $tickets = $repository->findBy(['created_by' => $user]);
+        }
+
+        return $this->render('ticket/list.html.twig', ['tickets' => $tickets]);
+
+    }
 }
