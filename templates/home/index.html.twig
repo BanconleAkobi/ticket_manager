@@ -10,11 +10,9 @@
         {# Importations de la sidebar #}
         {% include 'components/_sidebar.hmtl.twig' %}
 
-
-
         <main class="main-content position-relative border-radius-md ">
         <!-- Navbar -->
-            {% include 'components/_navbar.html.twig' %}
+            {% include 'components/_navbar.html.twig' with {'page_name': 'Dashboard'} %}
 
             <!-- End Navbar -->
 

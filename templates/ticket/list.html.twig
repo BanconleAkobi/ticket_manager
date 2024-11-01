@@ -4,75 +4,70 @@
 
 {% block body %}
 
-    <div class="g-sidenav-show   bg-gray-100">
-        <div class="min-height-300 bg-primary position-absolute w-100"></div>
+    <div class="g-sidenav-show ">
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
 
         {# Importations de la sidebar #}
         {% include 'components/_sidebar.hmtl.twig' %}
 
 
-
         <main class="main-content position-relative border-radius-md ">
-            {# navbar #}
-            {% include 'components/_navbar.html.twig' %}
-            {# fin navbar #}
+            {% include 'components/_navbar.html.twig' with {'page_name': 'Tickets List' }%}
+            <section class="pt-5">
+                    <div class="container pt-5 ">
+                        <div class="row">
+                            <div class="col-12 mb-3 mb-lg-5">
+                                <div class="overflow-hidden card table-nowrap table-card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Tickets</h5>
+                                    </div>
+                                    {% if tickets|length >= 1  %}
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="small text-uppercase bg-body text-muted">
+                                            <tr class="text-center">
+                                                <th>Id</th>
+                                                <th>Title</th>
+                                                <th>Status</th>
+                                                <th>Priority</th>
+                                                <th>Assigned to</th>
+                                                <th>created at</th>
+                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
+                                                    <th>deadline</th>
+                                                    <th>updated at </th>
+                                                {% endif %}
 
+                                                <th class="text-end">Action</th>
+                                            </tr>
+                                            </thead>
+                                            {% for ticket in tickets %}
 
-    <section class="pt-5">
-            <div class="container pt-5 ">
-                <div class="row">
-                    <div class="col-12 mb-3 mb-lg-5">
-                        <div class="overflow-hidden card table-nowrap table-card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Tickets</h5>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead class="small text-uppercase bg-body text-muted">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Priority</th>
-                                        <th>Assigned to</th>
-                                        <th>created at</th>
-                                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
-                                            <th>deadline</th>
-                                            <th>updated at </th>
-                                        {% endif %}
-
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                    </thead>
-                                    {% for ticket in tickets %}
-
-                                    <tbody>
-                                    <tr class="align-middle">
-                                        <td>{{ ticket.id }}</td>
-                                        <td>{{ ticket.title }}</td>
-                                        <td>{{ ticket.status }}</td>
-                                        <td>{{ ticket.priority }}</td>
-                                        <td>{{ ticket.assignedTo }}</td>
-                                        <td>{{ ticket.createdAt }}</td>
-                                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
-                                            <th>{{ ticket.deadline }}</th>
-                                            <th>{{ ticket.updatedAt}} </th>
-                                        {% endif %}
-                                    </tr>
-                                    </tbody>
-                                    {% endfor %}
-                                </table>
+                                            <tbody>
+                                            <tr class="align-middle text-center">
+                                                <td>{{ ticket.id }}</td>
+                                                <td>{{ ticket.title }}</td>
+                                                <td>{{ ticket.status.value }}</td>
+                                                <td>{{ ticket.priority.value }}</td>
+                                                <td>{{ ticket.assignedTo }}</td>
+                                                <td>{{ ticket.createdAt|date('Y-m-d') }}</td>
+                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
+                                                    <th>{{ ticket.deadline|date('Y-m-d') }}</th>
+                                                    <th>{{ ticket.updatedAt|date('Y-m-d')}} </th>
+                                                {% endif %}
+                                            </tr>
+                                            </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <p class="text-center text-info py-3">No tickets found.</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-    </section>
-
-
+            </section>
         </main>
-
-
 
     </div>
 

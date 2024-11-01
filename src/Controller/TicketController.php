@@ -88,12 +88,12 @@ class TicketController extends AbstractController
 
         return $this->render('ticket/create.html.twig', [
             'submit_message' => 'Create ticket',
-            'form' => $form->createView(),
+            'create_ticket_form' => $form->createView(),
         ]);
     }
 
     #[Route('/ticket/{id}/edit/', name: 'app_ticket_edit')]
-    public function editTicket(Ticket $ticket, Request $request): Response
+    public function editTicket(Ticket $ticket, Request $request, $id): Response
     {
         $ticketPreviousStatus = $ticket->getStatus();
         $form = $this->createForm(TicketType::class, $ticket, [
@@ -122,12 +122,12 @@ class TicketController extends AbstractController
             }
 
             // Redirection
-            return $this->redirectToRoute('app_ticket');
+            return $this->redirectToRoute('app_ticket_list');
         }
 
         return $this->render('ticket/edit.html.twig', [
             'submit_message' => 'Update ticket',
-            'form' => $form->createView(),
+            'edit_ticket_form' => $form->createView(),
         ]);
     }
 
@@ -150,4 +150,5 @@ class TicketController extends AbstractController
         return $this->render('ticket/list.html.twig', ['tickets' => $tickets]);
 
     }
+
 }

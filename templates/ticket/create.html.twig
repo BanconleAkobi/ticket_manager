@@ -4,32 +4,24 @@
 
 {% block body %}
 
-    <div class="g-sidenav-show   bg-gray-100">
-        <div class="min-height-300 bg-primary position-absolute w-100"></div>
+<div class="g-sidenav-show   bg-gray-100">
+            <div class="min-height-100 bg-primary position-absolute w-100"></div>
 
-     Importations de la sidebar #}
-        {% include 'components/_sidebar.hmtl.twig' %}
+                {% include 'components/_sidebar.hmtl.twig' %}
 
+    <main class="main-content position-relative border-radius-md">
+        {% include 'components/_navbar.html.twig' with {'page_name':'Ticket Creation'} %}
 
-        <main class="main-content position-relative border-radius-md ">
-            {# navbar #}
-            {% include 'components/_navbar.html.twig' %}}
-        {# fin navbar #}
+        <div class="w-75 mx-auto mt-5">
+            {% include 'components/_form.html.twig' with {'form_name':  create_ticket_form } %}
+        </div>
 
-            <section class="mt-5">
-                <div class="container mt-5">
-                    {% include 'components/_form.html.twig' %}
-                </div>
-            </section>
+    </main>
+</div>
 
-
-        </main>
-
-
-
-    </div>
 
 {% endblock %}
+
 
 
 
