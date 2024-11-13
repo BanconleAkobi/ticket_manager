@@ -1,3 +1,4 @@
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
+# Looking to send emails in production? Check out our Email API/SMTP product!

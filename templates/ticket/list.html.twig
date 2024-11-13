@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}List_tickets{% endblock %}
 
 {% block body %}
 
@@ -13,10 +13,19 @@
 
         <main class="main-content position-relative border-radius-md ">
             {% include 'components/_navbar.html.twig' with {'page_name': 'Tickets List' }%}
+
+
+
             <section class="pt-5">
                     <div class="container pt-5 ">
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success w-100 my-4">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                         <div class="row">
                             <div class="col-12 mb-3 mb-lg-5">
+
                                 <div class="overflow-hidden card table-nowrap table-card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5 class="mb-0">Tickets</h5>
@@ -25,7 +34,7 @@
                                     <div class="table-responsive">
                                         <table class="table mb-0">
                                             <thead class="small text-uppercase bg-body text-muted">
-                                            <tr class="text-center">
+                                            <tr class="text-center fw-bolder">
                                                 <th>Id</th>
                                                 <th>Title</th>
                                                 <th>Status</th>
@@ -36,24 +45,25 @@
                                                     <th>deadline</th>
                                                     <th>updated at </th>
                                                 {% endif %}
-
-                                                <th class="text-end">Action</th>
                                             </tr>
                                             </thead>
                                             {% for ticket in tickets %}
 
                                             <tbody>
-                                            <tr class="align-middle text-center">
-                                                <td>{{ ticket.id }}</td>
-                                                <td>{{ ticket.title }}</td>
-                                                <td>{{ ticket.status.value }}</td>
-                                                <td>{{ ticket.priority.value }}</td>
-                                                <td>{{ ticket.assignedTo }}</td>
-                                                <td>{{ ticket.createdAt|date('Y-m-d') }}</td>
+                                            <tr class="align-middle text-center fst-italic">
+                                                <th>{{ ticket.id }}</th>
+                                                <th>{{ ticket.title }}</th>
+                                                <th>{{ ticket.status.value }}</th>
+                                                <th>{{ ticket.priority.value }}</th>
+                                                <th>{{ ticket.assignedTo }}</th>
+                                                <th>{{ ticket.createdAt|date('Y-m-d') }}</th>
                                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
                                                     <th>{{ ticket.deadline|date('Y-m-d') }}</th>
                                                     <th>{{ ticket.updatedAt|date('Y-m-d')}} </th>
                                                 {% endif %}
+                                                <th><a href="{{ path('app_confirm_deleting', {'id': ticket.id, 'entity_name': 'ticket'}) }}" class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
+                                                    <a class="fst-italic fas fa-edit"></a>
+                                                </th>
                                             </tr>
                                             </tbody>
                                             {% endfor %}

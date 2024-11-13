@@ -4,8 +4,8 @@ namespace App\Enum;
 
 enum Status : string
 {
-    case Ouvert = "OUVERT";
-    case En_cours = "EN COURS";
-    case Resolu = "RÉSOLU";
-    case Ferme = "FERMÉ";
+    case Open = "OPEN";
+    case In_progress = "IN_PROGRESS";
+    case Resolved = "RESOLVED";
+    case Closed = "CLOSED";
 }

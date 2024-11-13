@@ -21,6 +21,7 @@ class TicketType extends AbstractType
             ->add('description')
             ->add('status', EnumType::class, [
                 'class' => Status::class,
+
             ])
             ->add('priority', EnumType::class, [
                 'class' => Priority::class,
