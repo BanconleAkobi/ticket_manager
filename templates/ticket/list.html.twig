@@ -62,7 +62,7 @@
                                                     <th>{{ ticket.updatedAt|date('Y-m-d')}} </th>
                                                 {% endif %}
                                                 <th><a href="{{ path('app_confirm_deleting', {'id': ticket.id, 'entity_name': 'ticket'}) }}" class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
-                                                    <a class="fst-italic fas fa-edit"></a>
+                                                    <a href="{{ path('app_ticket_edit', {'id' : ticket.id}) }}" class="fst-italic fas fa-edit"></a>
                                                 </th>
                                             </tr>
                                             </tbody>
