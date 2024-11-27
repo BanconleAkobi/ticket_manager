@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+
+    <div class="g-sidenav-show ">
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
+
+        {# Importations de la sidebar #}
+        {% include 'components/_sidebar.hmtl.twig' %}
+
+
+        <main class="main-content position-relative border-radius-md ">
+            {% include 'components/_navbar.html.twig' with {'page_name': 'Users List' }%}
+            <section class="pt-5">
+                <div class="container pt-5 ">
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success w-100 my-4">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-12 mb-3 mb-lg-5">
+                            <div class="overflow-hidden card table-nowrap table-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Users</h5>
+                                </div>
+                                {% if users|length > 0  %}
+                                    <div class="table-responsive">
+                                        <table class="table mb-0 ">
+                                            <thead class="small text-uppercase bg-body text-muted">
+                                            <tr class="text-center fw-bolder">
+                                                <th>Id</th>
+                                                <th>Firstname</th>
+                                                <th>Lastname</th>
+                                                <th>Email</th>
+                                                <th>Roles</th>
+
+                                            </tr>
+                                            </thead>
+                                            {% for user in users %}
+                                                <tbody>
+                                                <tr class="align-middle text-center fst-italic ">
+                                                    <th>{{ user.id }}</th>
+                                                    <th>{{ user.firstname }}</th>
+                                                    <th>{{ user.lastname }}</th>
+                                                    <th>{{ user.email }}</th>
+                                                    <th>
+                                                        <ul class="list-unstyled mb-0">
+                                                            {% for role in user.roles %}
+                                                                <li>{{ role }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+
+                                                    </th>
+                                                    <th><a href="{{ path('app_confirm_deleting', {'id': user.id, 'entity_name': 'user'}) }}"  class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
+                                                        <a class=" fst-italic fas fa-edit"></a>
+                                                    </th>
+                                                </tr>
+                                                </tbody>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <p class="text-center text-info py-3">0 users: Weird, right? <i class="fa-solid fa-face-laugh"></i></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+{% endblock %}
