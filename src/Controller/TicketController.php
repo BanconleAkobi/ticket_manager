@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\TicketStatusHistory;
 use App\Entity\User;
-use App\Form\TicketType;
+use App\Form\Ticket\TicketType;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Route('/ticket')]
 class TicketController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
@@ -27,7 +28,7 @@ class TicketController extends AbstractController
         $this->ticketRepository = $ticketRepository;
     }
 
-    #[Route('/ticket', name: 'app_ticket')]
+    #[Route('/', name: 'app_ticket')]
     public function index(Request $request): Response
     {
         $filters = (count($request->request->all('filters')) != 0) ? $request->request->all('filters') : [];
@@ -61,7 +62,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/ticket/create/', name: 'app_ticket_create')]
+    #[Route('/create', name: 'app_ticket_create')]
     public function createTicket(Request $request): Response
     {
     
@@ -95,7 +96,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/ticket/{id}/edit/', name: 'app_ticket_edit')]
+    #[Route('/{id}/edit', name: 'app_ticket_edit')]
     public function editTicket(Ticket $ticket, Request $request): Response
     {
         $ticketPreviousStatus = $ticket->getStatus();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Ticket;
 
 use App\Entity\Ticket;
 use App\Entity\User;
