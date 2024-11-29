@@ -37,27 +37,11 @@ class TicketController extends AbstractController
         /** @var User */
         $user = $this->getUser();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $tickets = $this->ticketRepository->findBy($filters, $orderBy);
+        $filters['created_by'] = $user;
 
-        } else {
-            $userFilter = $filters['created_by'] ?? null;
-            $filters['created_by'] = $user;
+        $tickets = $this->ticketRepository->findBy($filters, $orderBy);
 
-            $tickets = $this->ticketRepository->findBy($filters, $orderBy);
-
-            if ($this->isGranted('ROLE_TECH_SUPPORT')) {
-                if ($userFilter) {
-                    $filters['created_by'] = $userFilter;
-                }
-
-                $filters['assigned_by'] = $user;
-
-                $tickets += $this->ticketRepository->findBy($filters, $orderBy);
-            }
-        }
-
-        return $this->render('ticket/index.html.twig', [
+        return $this->render('ticket/list.html.twig', [
             'tickets' => $tickets,
         ]);
     }
@@ -86,7 +70,7 @@ class TicketController extends AbstractController
 
             $this->addFlash('success', 'Ticket created.');
 
-            return $this->redirectToRoute('app_ticket_list');
+            return $this->redirectToRoute('app_ticket');
 
         }
 
@@ -128,7 +112,7 @@ class TicketController extends AbstractController
             $this->addFlash('success', 'Ticket has been edited.');
 
             // Redirection
-            return $this->redirectToRoute('app_ticket_list');
+            return $this->redirectToRoute('app_ticket');
         }
 
         return $this->render('ticket/edit.html.twig', [
@@ -137,47 +121,30 @@ class TicketController extends AbstractController
         ]);
     }
 
-
-
-
-    #[Route('/tickets/list' , name:'app_ticket_list')]
-    public function ticketList(Request $request, TicketRepository $repository): Response
-    {
-        $tickets = [];
-
-        $user = $this->getUser();
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $tickets = $repository->findAll();
-        } elseif ($this->isGranted('ROLE_TECH_SUPPORT')) {
-            $tickets = $repository->findBy(['assigned_to' => $user]);
-        } elseif ($this->isGranted('ROLE_USER')) {
-            $tickets = $repository->findBy(['created_by' => $user]);
-        }
-
-        return $this->render('ticket/list.html.twig', ['tickets' => $tickets]);
-
-    }
-
-    #[Route('/tickets/assigned_to_me' , name:'app_assigned_ticket_list')]
+    #[Route('/gestion' , name:'app_gestion_ticket')]
     public function ticket_assigned(Request $request, TicketRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_TECH_SUPPORT');
-        $user = $this->getUser();
-        $tickets = $repository->findBy(['assigned_to' => $user]);
+        
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $tickets = $repository->findAll();
+        } else {
+            $user = $this->getUser();
+            $tickets = $repository->findBy(['assigned_to' => $user]);
+        }
 
-        return $this->render('ticket/assigned.html.twig', ['tickets' => $tickets]);
-
+        return $this->render('ticket/managed.html.twig', ['tickets' => $tickets]);
     }
 
 
-    #[Route('/ticket/{id}/delete', name:"app_delete_ticket")]
+    #[Route('/{id}/delete', name:"app_delete_ticket")]
     public function deleteTicket(Ticket $ticket, TicketRepository $repository){
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $this->entityManager->remove($ticket);
         $this->entityManager->flush();
 
         $this->addFlash('success', 'Ticket successfully deleted.');
-        return $this->redirectToRoute('app_ticket_list');
+        return $this->redirectToRoute('app_ticket');
 
     }
 

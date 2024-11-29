@@ -29,20 +29,20 @@
         </li>
         {% endif %}
         <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_ticket_list') }}">
+            <a class="nav-link" href="{{ path('app_ticket') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-list-alt text-warning text-sm opacity-10"></i> <!-- View tickets icon -->
+                    <i class="fas fa-list-alt text-warning text-sm opacity-10"></i> <!-- View your tickets icon -->
                 </div>
-                <span class="nav-link-text ms-1">View tickets</span>
+                <span class="nav-link-text ms-1">View your tickets</span>
             </a>
         </li>
         {% if is_granted('ROLE_TECH_SUPPORT') %}
         <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_assigned_ticket_list') }}">
+            <a class="nav-link" href="{{ path('app_gestion_ticket') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-user-check text-success text-sm opacity-10"></i> <!-- View assigned tickets icon -->
+                    <i class="fas fa-user-check text-success text-sm opacity-10"></i> <!-- Manage tickets icon -->
                 </div>
-                <span class="nav-link-text ms-1">View assigned tickets</span>
+                <span class="nav-link-text ms-1">Manage tickets</span>
             </a>
         </li>
         {% endif %}

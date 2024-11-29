@@ -20,7 +20,7 @@
                              <a href="{{ path('app_admin_user_list') }}" class="btn btn-secondary me-3">Cancel</a>
                               <a href="{{ path('app_delete_user', {'id': id })}}" class="btn btn-danger">Confirm</a>
                         {% else %}
-                            <a  href="{{ path('app_ticket_list') }}" class="btn btn-secondary me-3">Cancel</a>
+                            <a  href="{{ path('app_ticket') }}" class="btn btn-secondary me-3">Cancel</a>
                             <a   href="{{ path('app_delete_ticket', {'id': id })}}" class="btn btn-danger">Confirm</a>
                         {% endif %}
 
