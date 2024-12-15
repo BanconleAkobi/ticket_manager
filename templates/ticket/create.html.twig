@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation{% endblock %}
+
+{% block body %}
+
+<div class="g-sidenav-show ">
+            <div class="min-height-100 bg-primary position-absolute w-100"></div>
+
+                {% include 'components/_sidebar.hmtl.twig' %}
+
+    <main class="main-content position-relative border-radius-md">
+        {% include 'components/_navbar.html.twig' with {'page_name':'Ticket Creation'} %}
+
+        <div class="w-75 mx-auto mt-5">
+            {% include 'components/_form.html.twig' with {'form_name':  create_ticket_form } %}
+        </div>
+
+    </main>
+</div>
+
+
+{% endblock %}
+
+
+
+

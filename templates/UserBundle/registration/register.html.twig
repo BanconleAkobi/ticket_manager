@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="container py-5 back">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right bg-body-tertiary" style="
+            backdrop-filter: blur(30px);
+            ">
+                    <div class="card-body p-5 shadow-5 text-center">
+                        <h1 class="fw-bold mb-5"> Inscription </h1>
+                        <div class="my-2 alert-danger">
+                            {{ form_errors(registrationForm) }}
+                        </div>
+                        {{ form_start(registrationForm) }}
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.firstname) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(registrationForm.lastname) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(registrationForm.email) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password'
+                                    }) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- bouton de submit -->
+                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">
+                            S'inscrire.
+                        </button>
+                        <br>
+                        <a href="{{ path('app_login') }}" class="text-info text-center link-underline link-underline-opacity-0">Déjà inscrit ?</a><br><br>
+
+                        {{ form_end(registrationForm) }}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-lg-6 mb-5 mt-5 mb-lg-0">
+                <img src="{{ asset('img/logo.jpeg') }}" class="w-100 rounded-4 shadow-4"
+                     alt="un logo de ticket" />
+            </div>
+        </div>
+    </div>
+    </section>
+{% endblock %}

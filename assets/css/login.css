@@ -1,0 +1,26 @@
+.cascading-right {
+    margin-right: -50px;
+}
+
+
+.movement{
+    transition: transform 450ms;
+}
+
+
+
+
+@media (min-width: 991.98px) {
+    .movement:hover{
+        z-index: 0.5;
+        transform: translateX(30px);
+    }
+
+}
+
+@media (max-width: 991.98px) {
+    .cascading-right {
+        margin-right: 0;
+    }
+
+}

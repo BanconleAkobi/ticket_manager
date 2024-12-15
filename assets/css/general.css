@@ -1,0 +1,6 @@
+/* styles.css ou dans une balise <style> */
+.text-center-label {
+    text-align: center; /* Centre le texte */
+    display: block;     /* Assure que le label prend toute la largeur */
+    width: 100%;       /* Prend toute la largeur du conteneur */
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deleting{% endblock %}
+
+{% block body %}
+
+    <div class="g-sidenav-show ">
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
+
+        {% include 'components/_sidebar.hmtl.twig' %}
+
+        <main class="main-content position-relative border-radius-md">
+            {% include 'components/_navbar.html.twig' with {'page_name':'Deleting'} %}
+
+            <div class="w-25 mx-auto mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        Are you sure you want to delete this {{ entity_name }}? <br><br>
+                        {% if  entity_name == 'user' %}
+                             <a href="{{ path('app_admin_user_list') }}" class="btn btn-secondary me-3">Cancel</a>
+                              <a href="{{ path('app_delete_user', {'id': id })}}" class="btn btn-danger">Confirm</a>
+                        {% else %}
+                            <a  href="{{ path('app_ticket') }}" class="btn btn-secondary me-3">Cancel</a>
+                            <a   href="{{ path('app_delete_ticket', {'id': id })}}" class="btn btn-danger">Confirm</a>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+{% endblock %}
+
+
+
+

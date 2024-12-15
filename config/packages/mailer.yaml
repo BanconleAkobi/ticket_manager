@@ -1,0 +1,4 @@
+framework:
+    mailer:
+        dsn: 'smtp://0d907f6135f6fc0c1404deefa5673a9d:d9f778ccf336d0c09e47197c63b544c4@smtp.mailjet.com:587'
+# Looking to send emails in production? Check out our Email API/SMTP product!
