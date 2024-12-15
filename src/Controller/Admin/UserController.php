@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 
 #[Route('/admin')]
-class UserListController extends AbstractController
+class UserController extends AbstractController
 {
-
     private $em;
     public function __construct(EntityManagerInterface $em){
         $this->em = $em;
     }
+
     #[Route('/user/list', name: 'app_admin_user_list')]
     public function index(UserRepository $repository): Response
     {
@@ -30,8 +30,6 @@ class UserListController extends AbstractController
             'users' => $users,
         ]);
     }
-
-
 
     #[Route('/user/{id}/delete', name:"app_delete_user")]
     public function deleteUser(User $user, TicketRepository $repository){

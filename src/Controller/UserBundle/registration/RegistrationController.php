@@ -34,19 +34,20 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+
             // mail sending
 
             $mail =(new Email())
                 ->subject("Inscription à ticks")
                 ->from("ingenieurbanconle@gmail.com")
                 ->to($user->getEmail())
-                ->html("Vous venez de vous inscrire sur notre site de <h3>gestion de tickets</h3>. <br> Nous vous en remercions <br> Nous espérons que vous puissiez trouver votre bonheur");
+                ->html("Vous venez de vous inscrire sur notre site de <b>gestion de tickets</b>. <br> Nous vous en remercions <br> Nous espérons que vous puissiez trouver votre bonheur.<br> L'équipe Ticks");
 
                 try{
                     $mailer->send($mail);
                     $this->addFlash("success", "Votre compte a bien été enrégistrez, veuillez vous connecter");
                 }catch(\Exception $e){
-                    throw new RuntimeException("Erreur lors de l'envoi du message:  ". $e->getMessage());
+                    throw new \Exception("Erreur lors de la confirmation du mail: " . $e->getMessage());
                 }
 
 

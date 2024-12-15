@@ -3,32 +3,25 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-
     <div class="g-sidenav-show ">
-        <div class="min-height-300 bg-primary position-absolute w-100"></div>
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
 
-        {# Importations de la sidebar #}
         {% include 'components/_sidebar.hmtl.twig' %}
 
+        <main class="main-content position-relative border-radius-md">
+            {% include 'components/_navbar.html.twig' with {'page_name':'Ticket Creation'} %}
 
+            <div class="w-75 mx-auto mt-5">
+                <h1>Reset your password</h1>
 
-        <main class="main-content position-relative border-radius-md ">
-            {# navbar #}
-            {% include 'components/_navbar.html.twig' %}
-            {# fin navbar #}
-
-            <h1>Reset your password</h1>
-
-            {{ form_start(resetForm) }}
-            {{ form_row(resetForm.plainPassword) }}
-            <button class="btn btn-primary">Reset password</button>
-            {{ form_end(resetForm) }}
-
+                {{ form_start(resetForm) }}
+                {{ form_row(resetForm.plainPassword) }}
+                <button class="btn btn-primary">Reset password</button>
+                {{ form_end(resetForm) }}
+            </div>
 
         </main>
-
-
-
     </div>
+
 
 {% endblock %}

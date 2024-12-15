@@ -47,6 +47,8 @@ class TicketFixture extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
     }
+
+
     public static function getGroups(): array{
         return [
             'tickets'
