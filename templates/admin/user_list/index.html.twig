@@ -56,8 +56,9 @@
                                                         </ul>
 
                                                     </th>
-                                                    <th><a href="{{ path('app_confirm_deleting', {'id': user.id, 'entity_name': 'user'}) }}"  class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
-                                                        <a class=" fst-italic fas fa-edit"></a>
+                                                    <th>
+                                                        <a href="{{ path('app_confirm_deleting', {'id': user.id, 'entity_name': 'user'}) }}"  class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
+                                                        <a href="{{ path('app_admin_edit_user', {'id': user.id}) }}" class=" fst-italic fas fa-edit"></a>
                                                     </th>
                                                 </tr>
                                                 </tbody>

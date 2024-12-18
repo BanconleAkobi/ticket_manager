@@ -122,7 +122,7 @@ class TicketController extends AbstractController
     }
 
     #[Route('/gestion' , name:'app_gestion_ticket')]
-    public function ticket_assigned(Request $request, TicketRepository $repository): Response
+    public function manageTicket(Request $request, TicketRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_TECH_SUPPORT');
         

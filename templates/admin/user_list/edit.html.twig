@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}editing{% endblock %}
+
+{% block body %}
+
+    <div class="g-sidenav-show   bg-gray-100">
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
+
+        {% include 'components/_sidebar.hmtl.twig' %}
+
+        <main class="main-content position-relative border-radius-md">
+            {% include 'components/_navbar.html.twig' with {'page_name':'User Edition'} %}
+
+            <div class="w-75 mx-auto mt-5">
+                {% include 'components/_form.html.twig' with {'form_name':  edit_user_form }%}
+            </div>
+
+        </main>
+    </div>
+
+
+{% endblock %}
+
+
+
+
