@@ -4,3 +4,5 @@
     display: block;     /* Assure que le label prend toute la largeur */
     width: 100%;       /* Prend toute la largeur du conteneur */
 }
+
+.toggle-password-container{position:relative}.toggle-password-icon{height:1rem;width:1rem}.toggle-password-button{background-color:transparent;border:none}

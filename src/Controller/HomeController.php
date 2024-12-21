@@ -28,10 +28,10 @@ class HomeController extends AbstractController
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
-            'labels' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             'datasets' => [
                 [
-                'label' => 'Nombre de tickets créés',
+                'label' => 'Number of tickets created',
                 'backgroundColor' =>'rgb(255, 99, 132)',
                 'borderColor' => 'rgb(255, 99, 132)',
                 'data' => array_values($createByMonths)
@@ -73,10 +73,10 @@ class HomeController extends AbstractController
         $chart2 =  $chartBuilder->createChart(Chart::TYPE_RADAR);
 
         $chart2->setData([
-            'labels' => ['Ouvert', 'En Cours', 'Résolu', 'Fermé'], // Labels des statuts
+            'labels' => ['Open', 'In progress', 'Resolved', 'Closed'], // Labels des statuts
             'datasets' => [
                 [
-                    'label' => 'Tickets par statut',
+                    'label' => 'Tickets by status',
                     'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
                     'borderColor' => 'rgb(255, 99, 132)',
                     'data' => array_values($NbByStatus)

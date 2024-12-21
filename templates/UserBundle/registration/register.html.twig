@@ -11,7 +11,7 @@
             backdrop-filter: blur(30px);
             ">
                     <div class="card-body p-5 shadow-5 text-center">
-                        <h1 class="fw-bold mb-5"> Inscription </h1>
+                        <h1 class="fw-bold mb-5"> Registration </h1>
                         <div class="my-2 alert-danger">
                             {{ form_errors(registrationForm) }}
                         </div>
@@ -43,10 +43,10 @@
 
                         <!-- bouton de submit -->
                         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">
-                            S'inscrire.
+                            Sign up
                         </button>
                         <br>
-                        <a href="{{ path('app_login') }}" class="text-info text-center link-underline link-underline-opacity-0">Déjà inscrit ?</a><br><br>
+                        <a href="{{ path('app_login') }}" class="text-info text-center link-underline link-underline-opacity-0">Already registered?</a><br><br>
 
                         {{ form_end(registrationForm) }}
 

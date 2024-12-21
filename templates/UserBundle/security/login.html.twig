@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connection{% endblock %}
 
 {% block body %}
 
@@ -17,15 +17,15 @@
                                 {{ message }}
                             </div>
                         {% endfor %}
-                        <h1 class="fw-bold mb-5"> Connectez-vous </h1>
+                        <h1 class="fw-bold mb-5"> Log on </h1>
                         <form action="{{ path("app_login")}}" method="post">
                             {% if error %}
-                                <div class="alert alert-danger">Vos identifiants ne sont pas corrects</div>
+                                <div class="alert alert-danger">Your login details are not correct</div>
                             {% endif %}
 
                             {% if app.user %}
                                 <div class="mb-3">
-                                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}  |   <a class="link-underline link-underline-opacity-0" href="{{ path('app_logout') }}">Se déconnecter ?</a>
+                                    You are logged in as {{ app.user.userIdentifier }}  |   <a class="link-underline link-underline-opacity-0" href="{{ path('app_logout') }}">Disconnect?</a>
                                 </div>
                             {% endif %}
 
@@ -37,7 +37,7 @@
 
                             <!-- mot de passe -->
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <label class="form-label fw-bold fst-italic" for="password">Mot de passe:</label>
+                                <label class="form-label fw-bold fst-italic" for="password">Password:</label>
                                 <div class="toggle-password-container">
                                     <input class="form-control " type="password" id="password" name="_password" required 
                                     data-controller="symfony--ux-toggle-password--toggle-password"
@@ -54,13 +54,13 @@
                             <!-- la Checkbox  -->
                             <div class="form-check d-flex justify-content-center mb-4">
                                 <input type="checkbox" name="_remember_me" id="_remember_me" class="form-check-input me-2">
-                                <label  class="form-check-label" for="_remember_me">Se rappeler de moi</label>
+                                <label  class="form-check-label" for="_remember_me">Remember me</label>
                             </div>
-                            <a href="{{ path('app_register') }}" class="text-info text-center link-underline link-underline-opacity-0">Vous n'avez pas de compte ?</a><br><br>
+                            <a href="{{ path('app_register') }}" class="text-info text-center link-underline link-underline-opacity-0">Don't have an account?</a><br><br>
 
                             <!-- Submit button -->
                             <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">
-                                Valider
+                                Confirm
                             </button>
 
 
