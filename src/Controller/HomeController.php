@@ -25,6 +25,8 @@ class HomeController extends AbstractController
             $createByMonths[$actualMonth]++;
         }
 
+        $color1 = 'rgb(255, 99, 132)';
+
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
@@ -32,8 +34,8 @@ class HomeController extends AbstractController
             'datasets' => [
                 [
                 'label' => 'Number of tickets created',
-                'backgroundColor' =>'rgb(255, 99, 132)',
-                'borderColor' => 'rgb(255, 99, 132)',
+                'backgroundColor' => $color1,
+                'borderColor' => $color1,
                 'data' => array_values($createByMonths)
                     ]
             ]
@@ -59,14 +61,14 @@ class HomeController extends AbstractController
          * case 1: ouvert, 2: en cours ,3: résolu, 4: fermé
          */
 
-        $NbByStatus = [
+        $nbByStatus = [
             'OPEN' => 0,
             'IN_PROGRESS' => 0,
             'RESOLVED' => 0,
             'CLOSED' => 0,
         ];
         foreach ($tickets as $ticket) {
-            $NbByStatus[$ticket->getStatus()->value]++;
+            $nbByStatus[$ticket->getStatus()->value]++;
         }
 
         //graphique des nombres de tickets en fonction des status
@@ -78,8 +80,8 @@ class HomeController extends AbstractController
                 [
                     'label' => 'Tickets by status',
                     'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => array_values($NbByStatus)
+                    'borderColor' => $color1,
+                    'data' => array_values($nbByStatus)
                 ]
             ]
         ]);
@@ -87,7 +89,7 @@ class HomeController extends AbstractController
             'scales' => [
                 'r' => [
                     'suggestedMin' => 0,
-                    'suggestedMax' => max($NbByStatus) + 1,
+                    'suggestedMax' => max($nbByStatus) + 1,
                 ],
             ],
             'plugins' => [
@@ -103,7 +105,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'chart' => $chart,
             'chart2' => $chart2,
-            'nbByStatus' => $NbByStatus,
+            'nbByStatus' => $nbByStatus,
         ]);
     }
 }
