@@ -2,6 +2,7 @@
 
 namespace App\Controller\UserBundle\registration;
 
+use App\Controller\Exceptions\MailException;
 use App\Entity\User;
 use App\Form\User\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,7 +48,7 @@ class RegistrationController extends AbstractController
                     $mailer->send($mail);
                     $this->addFlash("success", "Votre compte a bien été enrégistrez, veuillez vous connecter");
                 }catch(\Exception $e){
-                    throw new \Exception("Erreur lors de la confirmation du mail: " . $e->getMessage());
+                    throw new MailException("Erreur lors de la confirmation du mail: " . $e->getMessage());
                 }
 
 

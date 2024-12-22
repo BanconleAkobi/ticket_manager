@@ -25,15 +25,17 @@ class HomeController extends AbstractController
             $createByMonths[$actualMonth]++;
         }
 
+        $color1 = 'rgb(255, 99, 132)';
+
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
-            'labels' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             'datasets' => [
                 [
-                'label' => 'Nombre de tickets créés',
-                'backgroundColor' =>'rgb(255, 99, 132)',
-                'borderColor' => 'rgb(255, 99, 132)',
+                'label' => 'Number of tickets created',
+                'backgroundColor' => $color1,
+                'borderColor' => $color1,
                 'data' => array_values($createByMonths)
                     ]
             ]
@@ -59,27 +61,27 @@ class HomeController extends AbstractController
          * case 1: ouvert, 2: en cours ,3: résolu, 4: fermé
          */
 
-        $NbByStatus = [
+        $nbByStatus = [
             'OPEN' => 0,
             'IN_PROGRESS' => 0,
             'RESOLVED' => 0,
             'CLOSED' => 0,
         ];
         foreach ($tickets as $ticket) {
-            $NbByStatus[$ticket->getStatus()->value]++;
+            $nbByStatus[$ticket->getStatus()->value]++;
         }
 
         //graphique des nombres de tickets en fonction des status
         $chart2 =  $chartBuilder->createChart(Chart::TYPE_RADAR);
 
         $chart2->setData([
-            'labels' => ['Ouvert', 'En Cours', 'Résolu', 'Fermé'], // Labels des statuts
+            'labels' => ['Open', 'In progress', 'Resolved', 'Closed'], // Labels des statuts
             'datasets' => [
                 [
-                    'label' => 'Tickets par statut',
+                    'label' => 'Tickets by status',
                     'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => array_values($NbByStatus)
+                    'borderColor' => $color1,
+                    'data' => array_values($nbByStatus)
                 ]
             ]
         ]);
@@ -87,7 +89,7 @@ class HomeController extends AbstractController
             'scales' => [
                 'r' => [
                     'suggestedMin' => 0,
-                    'suggestedMax' => max($NbByStatus) + 1,
+                    'suggestedMax' => max($nbByStatus) + 1,
                 ],
             ],
             'plugins' => [
@@ -103,7 +105,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'chart' => $chart,
             'chart2' => $chart2,
-            'nbByStatus' => $NbByStatus,
+            'nbByStatus' => $nbByStatus,
         ]);
     }
 }
