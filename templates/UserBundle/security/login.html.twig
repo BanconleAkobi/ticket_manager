@@ -2,9 +2,8 @@
 
 {% block title %}Connexion{% endblock %}
 
-{% block body %}
-
-
+{% set body_class = "d-flex align-items-center justify-content-center log_auth" %}
+{% block body%}
     <div class="container py-5">
         <div class="row g-0 align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
@@ -56,6 +55,8 @@
                                 <input type="checkbox" name="_remember_me" id="_remember_me" class="form-check-input me-2">
                                 <label  class="form-check-label" for="_remember_me">Se rappeler de moi</label>
                             </div>
+                            <a href="{{ path('app_forgot_password_request') }}" class="text-info text-center link-underline link-underline-opacity-0">Mot de passe oublié ?</a><br><br>
+
                             <a href="{{ path('app_register') }}" class="text-info text-center link-underline link-underline-opacity-0">Vous n'avez pas de compte ?</a><br><br>
 
                             <!-- Submit button -->
@@ -69,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 mb-5 mt-5 mb-lg-0">
+            <div class="col-lg-6 my-3 mb-lg-0">
                 <img src="{{ asset('img/login_logo.jpeg') }}" class="w-100 rounded-4  shadow-4"
                      alt="image de support ticketing" />
             </div>

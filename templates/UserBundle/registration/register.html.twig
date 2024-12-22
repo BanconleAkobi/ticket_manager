@@ -2,6 +2,8 @@
 
 {% block title %}Register{% endblock %}
 
+{% set body_class = "d-flex align-items-center justify-content-center log_auth" %}
+
 {% block body %}
 
     <div class="container py-5 back">
@@ -54,7 +56,7 @@
                 </div>
             </div>
 
-            <div class=" col-lg-6 mb-5 mt-5 mb-lg-0">
+            <div class=" col-lg-6 my-4 mb-lg-0">
                 <img src="{{ asset('img/logo.jpeg') }}" class="w-100 rounded-4 shadow-4"
                      alt="un logo de ticket" />
             </div>

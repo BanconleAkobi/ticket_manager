@@ -4,3 +4,9 @@
     display: block;     /* Assure que le label prend toute la largeur */
     width: 100%;       /* Prend toute la largeur du conteneur */
 }
+.log_auth {
+    background: linear-gradient(to right,#f6f7fb, #8f94fb);
+
+    height: 100vh;
+}
+.toggle-password-container{position:relative}.toggle-password-icon{height:1rem;width:1rem}.toggle-password-button{background-color:transparent;border:none}

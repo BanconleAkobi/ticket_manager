@@ -18,7 +18,14 @@ class HomeController extends AbstractController
 
 
         //création du chart pour le graphique affichant le nombre de tickets par mois.
-        $tickets = $repository->findBy(['created_by' => $this->getUser()]);
+        if($this->isGranted('ROLE_ADMIN')){
+            $tickets =  $repository->findAll();
+        }elseif($this->isGranted('ROLE_TECH_SUPPORT')){
+            $tickets = $repository->findBy(['assigned_to' => $this->getUser()]);
+        }else{
+            $tickets = $repository->findBy(['created_by' => $this->getUser()]);
+        }
+
         $createByMonths = array_fill(1, 12, 0);
         foreach ($tickets as $ticket) {
             $actualMonth = (int)date("m", ($ticket->getCreatedAt())->getTimestamp()) ;

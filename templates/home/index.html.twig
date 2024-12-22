@@ -5,205 +5,208 @@
 {% block body %}
 
     <div class="g-sidenav-show   bg-gray-100">
-    <div class="min-height-300 bg-primary position-absolute w-100"></div>
+        <div class="min-height-300 bg-primary position-absolute w-100"></div>
 
         {# Importations de la sidebar #}
         {% include 'components/_sidebar.hmtl.twig' %}
 
         <main class="main-content position-relative border-radius-md ">
-        <!-- Navbar -->
+            <!-- Navbar -->
             {% include 'components/_navbar.html.twig' with {'page_name': 'Dashboard'} %}
 
             <!-- End Navbar -->
 
-        <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 font-weight-bold">Number of</p>
-                                        <p class="mb-0">
-                                            <span class="text-success text-sm font-weight-bolder">Opened tickets</span>
-                                        </p>
-                                        <h5 class="font-weight-bolder">
-                                            {{ nbByStatus.OPEN }}
-                                        </h5>
+            <div class="container-fluid py-4">
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 font-weight-bold">Number of</p>
+                                            <p class="mb-0">
+                                                <span class="text-success text-sm font-weight-bolder">Opened tickets</span>
+                                            </p>
+                                            <h5 class="font-weight-bolder">
+                                                {{ nbByStatus.OPEN }}
+                                            </h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="fas fa-ticket-alt text-lg opacity-10" aria-hidden="true"></i> <!-- Opened tickets icon -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 font-weight-bold">Number of tickets</p>
-                                        <p class="mb-0">
-                                            <span class="text-success text-sm font-weight-bolder">in progress</span>
-                                        </p>
-                                        <h5 class="font-weight-bolder">
-                                            {{ nbByStatus.IN_PROGRESS }}
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                        <i class="fas fa-spinner text-lg opacity-10" aria-hidden="true"></i> <!-- In progress icon -->
+                                    <div class="col-4 text-end">
+                                        <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                            <i class="fas fa-ticket-alt text-lg opacity-10" aria-hidden="true"></i> <!-- Opened tickets icon -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 font-weight-bold">Number of</p>
-                                        <p class="mb-0">
-                                            <span class="text-success text-sm font-weight-bolder">Resolved tickets</span>
-                                        </p>
-                                        <h5 class="font-weight-bolder">
-                                            {{ nbByStatus.RESOLVED }}
-                                        </h5>
+                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 font-weight-bold">Number of tickets</p>
+                                            <p class="mb-0">
+                                                <span class="text-success text-sm font-weight-bolder">in progress</span>
+                                            </p>
+                                            <h5 class="font-weight-bolder">
+                                                {{ nbByStatus.IN_PROGRESS }}
+                                            </h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                        <i class="fas fa-check-circle text-lg opacity-10" aria-hidden="true"></i> <!-- Resolved tickets icon -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 font-weight-bold">Number of</p>
-                                        <p class="mb-0">
-                                            <span class="text-success text-sm font-weight-bolder">Closed tickets</span>
-                                        </p>
-                                        <h5 class="font-weight-bolder">
-                                            {{ nbByStatus.CLOSED }}
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                        <i class="fas fa-archive text-lg opacity-10" aria-hidden="true"></i> <!-- Closed tickets icon -->
+                                    <div class="col-4 text-end">
+                                        <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                            <i class="fas fa-spinner text-lg opacity-10" aria-hidden="true"></i> <!-- In progress icon -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-lg-7 mb-lg-0 mb-4">
-                    <div class="card z-index-2 h-100">
-                        <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h6 class="text-capitalize">Sales overview</h6>
-                            <p class="text-sm mb-0">
-                                <i class="fa fa-arrow-up text-success"></i>
-                                <span class="font-weight-bold">4% more</span> in 2021
-                            </p>
-                        </div>
-                        <div class="card-body p-3">
-                                <p class="card-text">
-                                    {{ render_chart(chart) }}
-                                </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card card-carousel overflow-hidden h-100 p-0">
-                        <div id="carouselExampleCaptions" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="3000">
-                            <div class="carousel-inner border-radius-lg h-100">
-                                <div class="carousel-item h-100 active" style="background-image: url('{{ asset('assets/images/caroussel2.jpg') }}'); background-size: cover;">
-                                </div>
-                                <div class="carousel-item h-100" style="background-image: url('{{ asset('assets/images/caroussel1.png') }}'); background-size: cover;">
-                                </div>
-                                <div class="carousel-item h-100" style="background-image: url('{{ asset('assets/images/caroussel3.jpg') }}'); background-size: cover;">
+                    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 font-weight-bold">Number of</p>
+                                            <p class="mb-0">
+                                                <span class="text-success text-sm font-weight-bolder">Resolved tickets</span>
+                                            </p>
+                                            <h5 class="font-weight-bolder">
+                                                {{ nbByStatus.RESOLVED }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                                            <i class="fas fa-check-circle text-lg opacity-10" aria-hidden="true"></i> <!-- Resolved tickets icon -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 font-weight-bold">Number of</p>
+                                            <p class="mb-0">
+                                                <span class="text-success text-sm font-weight-bolder">Closed tickets</span>
+                                            </p>
+                                            <h5 class="font-weight-bolder">
+                                                {{ nbByStatus.CLOSED }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                                            <i class="fas fa-archive text-lg opacity-10" aria-hidden="true"></i> <!-- Closed tickets icon -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mt-4">
-                <div class="col-lg-7 mb-lg-0 mb-4">
-                    <div class="card ">
-                        <div class="card-header pb-0 p-3">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="mb-2">Sales by Country</h6>
+                    <div class="col-lg-7 mb-lg-0 mb-4">
+                        <div class="card z-index-2 h-100">
+                            <div class="card-header pb-0 pt-3 bg-transparent">
+                                <h6 class="text-capitalize">
+                                        Number of tickets per month
+
+                                </h6>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{ render_chart(chart2) }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card">
-                        <div class="card-header pb-0 p-3">
-                            <h6 class="mb-2">Categories</h6>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                In this section, you will get a comprehensive overview of all the tickets generated in the system.
-                                You will be able to see the <strong>total number of tickets</strong> as well as their distribution by <strong>status</strong>
-                                (Open, In Progress, Resolved, Closed) and by <strong>priority</strong> (Low, Medium, High).
-                                Visual graphs will help you better understand the ticket situation within your organization.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <footer class="footer pt-3  ">
-                <div class="container-fluid">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-lg-6 mb-lg-0 mb-4">
-                            <div class="copyright text-center text-sm text-muted text-lg-start">
-                                © 2024,
-                                made with <i class="fa fa-heart"></i> by
-                                <a href="https://github.com/BanconleAkobi/ticket_manager" class="font-weight-bold" target="_blank"> Tics</a>
+                            <div class="card-body p-3">
+                                <p class="card-text">
+                                    {{ render_chart(chart) }}
+                                </p>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-5">
+                        <div class="card card-carousel overflow-hidden h-100 p-0">
+                            <div id="carouselExampleCaptions" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="3000">
+                                <div class="carousel-inner border-radius-lg h-100">
+                                    <div class="carousel-item h-100 active" style="background-image: url('{{ asset('assets/images/caroussel2.jpg') }}'); background-size: cover;">
+                                    </div>
+                                    <div class="carousel-item h-100" style="background-image: url('{{ asset('assets/images/caroussel1.png') }}'); background-size: cover;">
+                                    </div>
+                                    <div class="carousel-item h-100" style="background-image: url('{{ asset('assets/images/caroussel3.jpg') }}'); background-size: cover;">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mt-4">
+                        <div class="col-lg-7 mb-lg-0 mb-4">
+                            <div class="card ">
+                                <div class="card-header pb-0 p-3">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-capitalize">Distribution of tickets by status</h6>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        {{ render_chart(chart2) }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="card-header pb-0 p-3">
+                                    <h6 class="mb-2">Categories</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        In this section, you will get a comprehensive overview of all the tickets generated in the system.
+                                        You will be able to see the <strong>total number of tickets</strong> as well as their distribution by <strong>status</strong>
+                                        (Open, In Progress, Resolved, Closed) and by <strong>priority</strong> (Low, Medium, High).
+                                        Visual graphs will help you better understand the ticket situation within your organization.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <footer class="footer pt-3  ">
+                        <div class="container-fluid">
+                            <div class="row align-items-center justify-content-lg-between">
+                                <div class="col-lg-6 mb-lg-0 mb-4">
+                                    <div class="copyright text-center text-sm text-muted text-lg-start">
+                                        © 2024,
+                                        made with <i class="fa fa-heart"></i> by
+                                        <a href="https://github.com/BanconleAkobi/ticket_manager" class="font-weight-bold" target="_blank"> Tics</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
-            </footer>
-        </div>
-    </main>
+        </main>
 
 
 

@@ -1,35 +1,27 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
-
     <div class="g-sidenav-show ">
-        <div class="min-height-300 bg-primary position-absolute w-100"></div>
+        <div class="min-height-100 bg-primary position-absolute w-100"></div>
 
-        {# Importations de la sidebar #}
         {% include 'components/_sidebar.hmtl.twig' %}
 
+        <main class="main-content position-relative border-radius-md">
+            {% include 'components/_navbar.html.twig' with {'page_name':'Ticket Creation'} %}
 
-
-        <main class="main-content position-relative border-radius-md ">
-            {# navbar #}
-            {% include 'components/_navbar.html.twig' %}
-            {# fin navbar #}
-
-            <p>
-                If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-                This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-            </p>
-            <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
-
-
+            <div class="w-75 mx-auto mt-5">
+                <p>
+                    If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+                    This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                </p>
+                <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+            </div>
 
         </main>
-
-
-
     </div>
 
-{% endblock %}
 
+{% endblock %}
