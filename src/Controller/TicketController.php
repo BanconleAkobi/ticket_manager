@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\TicketStatusHistory;
 use App\Entity\User;
-use App\Form\Ticket\TicketFilterType;
+use App\Form\Ticket\TicketsFilterType;
 use App\Form\Ticket\TicketType;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
@@ -109,24 +109,41 @@ class TicketController extends AbstractController
     }
 
 
-
-    #[Route('/gestion' , name:'app_gestion_ticket')]
+    #[Route('/gestion', name: 'app_gestion_ticket')]
     public function manageTicket(Request $request, TicketRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
-        $ticketsFilterForm = $this->createForm(TicketFilterType::class);
-        if ($request->isMethod('POST')) {
-            $ticketsFilterForm->handleRequest($request);
-            if($ticketsFilterForm->isSubmitted() && $ticketsFilterForm->isValid()) {
-                $tickets = $repository->findByFilters($ticketsFilterForm->getData(), $user, $user->getRoles());
-            }
-        }else{
-            $tickets = $repository->findByFilters([], $user, $user->getRoles());
+        // Créez le formulaire
+        $ticketsFilterForm = $this->createForm(TicketsFilterType::class);
+        $ticketsFilterForm->handleRequest($request);
+
+        if ($ticketsFilterForm->isSubmitted() && $ticketsFilterForm->isValid()) {
+            $filters = [
+                'start' => $ticketsFilterForm->get('StartDate')->getData(),
+                'end' => $ticketsFilterForm->get('EndDate')->getData(),
+                'status' => $ticketsFilterForm->get('status')->getData(),
+            ];
+
+            // Recherchez les tickets filtrés
+            $tickets = $repository->findByFilters($filters, $user, $user->getRoles());
+
+            // Ajoutez les filtres à la session (facultatif, si nécessaire pour la redirection)
+            $request->getSession()->set('ticket_filters', $filters);
+
+            // Redirection vers la même page avec les résultats
+            return $this->redirectToRoute('app_gestion_ticket');
         }
 
-        return $this->render('ticket/managed.html.twig', ['tickets' => $tickets, 'ticketFilterForm' => $ticketsFilterForm->createView()]);
+        // Recherchez les tickets par défaut
+        $filters = $request->getSession()->get('ticket_filters', []);
+        $tickets = $repository->findByFilters($filters, $user, $user->getRoles());
+
+        return $this->render('ticket/managed.html.twig', [
+            'tickets' => $tickets,
+            'ticketFilterForm' => $ticketsFilterForm->createView(),
+        ]);
     }
 
 

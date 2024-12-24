@@ -46,9 +46,9 @@ class TicketRepository extends ServiceEntityRepository
      * @param $filters
      * @param $user
      * @param $roles
-     * @return Ticket|null
+     * @return Ticket
      */
-    public function findByFilters($filters, $user, $roles): ? Ticket
+    public function findByFilters($filters, $user, $roles): array
     {
                $qb = $this->createQueryBuilder('t');
 
@@ -76,6 +76,7 @@ class TicketRepository extends ServiceEntityRepository
                 }
 
                 $result = $qb->getQuery()->getResult();
-                return $result;
+
+        return $result;
     }
 }

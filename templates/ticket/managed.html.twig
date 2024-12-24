@@ -16,29 +16,58 @@
 
 
 
+            {# section des filtres #}
+            <section>
+                <div class="container mt-5">
+
+                    {{ form_start(ticketFilterForm) }}
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-md-3">
+                            {{ form_row(ticketFilterForm.StartDate) }}
+                            <div class="form-errors">
+                                {% for error in ticketFilterForm.StartDate.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(ticketFilterForm.EndDate) }}
+                            <div class="form-errors">
+                                {% for error in ticketFilterForm.EndDate.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(ticketFilterForm.status) }}
+                            <div class="form-errors">
+                                {% for error in ticketFilterForm.status.vars.errors %}
+                                    <div class="alert alert-danger">{{ error.message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-5">
+                            {{ form_row(ticketFilterForm.submit) }}
+                        </div>
+
+
+                    </div>
+                    {{ form_end(ticketFilterForm) }}
+                </div>
+            </section>
+
             <section class="pt-5">
                 <div class="container pt-5 ">
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success w-100 my-4">
-                            {{ message }}
-                        </div>
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} w-100 my-4">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
                     {% endfor %}
-                    <div class="row mb-5">
-                            {{ formstart(ticketFilterForm) }}
-                                <div class="offset-2  col-8 col-md-3 me-3">
-                                    {{ form_row(ticketFilterForm.StartDate) }}
-                                </div>
-                                <div class="offset-2 col-8 col-md-3 me-3">
-                                    {{ form_row(ticketFilterForm.EndDate) }}
-                                </div>
-                                <div class="offset-2 col-8 col-md-3 me-3">
-                                    {{ form_row(ticketFilterForm.status) }}
-                                </div>
-                                <div class="offset-2 col-8 col-md-3 m-3 me-3">
-                                    {{ form_row(ticketFilterForm.submit) }}
-                                </div>
-                            {{ formend(ticketFilterForm) }}
-                    </div>
+
+
                     <div class="row">
                         <div class="col-12 mb-3 mb-lg-5">
 
