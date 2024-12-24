@@ -2,6 +2,7 @@
 
 {% block title %}List_tickets{% endblock %}
 
+
 {% block body %}
 
     <div class="g-sidenav-show ">
@@ -13,6 +14,7 @@
 
         <main class="main-content position-relative border-radius-md ">
             {% include 'components/_navbar.html.twig' with {'page_name': 'Tickets List' }%}
+
 
 
 
@@ -46,8 +48,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="col-md-3 mt-5">
+                        <div class="col-md-3 mt-5 d-flex justify-content-between">
                             {{ form_row(ticketFilterForm.submit) }}
+                            {{ form_row(ticketFilterForm.reset) }}
                         </div>
 
 
@@ -73,7 +76,7 @@
 
                             <div class="overflow-hidden card table-nowrap table-card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Tickets</h5>
+                                    <h5 class="mb-0 fw-bolder">Tickets List</h5>
                                 </div>
                                 {% if tickets|length >= 1  %}
                                     <div class="table-responsive">
@@ -97,7 +100,7 @@
                                             {% for ticket in tickets %}
 
                                                 <tbody>
-                                                <tr class="align-middle text-center fst-italic">
+                                                <tr class="align-middle text-center ">
                                                     <th>{{ ticket.title }}</th>
                                                     <th>{{ ticket.status.value }}</th>
                                                     <th>{{ ticket.priority.value }}</th>
@@ -130,6 +133,89 @@
                     </div>
                 </div>
             </section>
+
+            <section  class="d-flex justify-content-center align-items-center">
+                <div class="pagination">
+                    {% if tickets is not empty %}
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {# Page précédente #}
+                                {% if tickets.currentPageNumber > 1 %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ path('app_gestion_ticket', {'page': tickets.currentPageNumber - 1}) }}" aria-label="Précédent">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" aria-label="Précédent">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% set totalPages = (tickets.totalItemCount / tickets.itemNumberPerPage) | round(0, 'ceil') %}
+                                {% set range = 5 %}
+                                {% set halfRange = range // 2 %}
+
+                                {# On calcule d’abord start et end #}
+                                {% set start = tickets.currentPageNumber - halfRange %}
+                                {% set end   = tickets.currentPageNumber + halfRange %}
+
+                                {# Si start descend en dessous de 1, on le remonte à 1 et on décale end en conséquence #}
+                                {% if start < 1 %}
+                                {% set end = end + (1 - start) %}
+                                {% set start = 1 %}
+                                {% endif %}
+
+                                {# Si end dépasse totalPages, on le fixe à totalPages et on recule start en conséquence #}
+                                {% if end > totalPages %}
+                                {% set start = start - (end - totalPages) %}
+                                {% set end = totalPages %}
+                                {% endif %}
+
+                                {# Si après le réajustement start est repassé sous 1, on le remet à 1 #}
+                                {% if start < 1 %}
+                                {% set start = 1 %}
+                                {% endif %}
+
+                                {# On peut maintenant boucler sur la plage [start..end] #}
+                                {% for page in start..end %}
+                                <li class="page-item {% if page == tickets.currentPageNumber %}active{% endif %}">
+                                    <a class="page-link" href="{{ path('app_gestion_ticket', {'page': page}) }}">
+                                        {{ page }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+
+
+                                {# Page suivante #}
+                                {% if tickets.currentPageNumber < totalPages %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ path('app_gestion_ticket', {'page': tickets.currentPageNumber + 1}) }}" aria-label="Suivant">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" aria-label="Suivant">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            Aucun ticket à afficher.
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+
+
+
         </main>
 
     </div>

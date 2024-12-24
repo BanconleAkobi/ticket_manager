@@ -44,6 +44,11 @@ class TicketsFilterType extends AbstractType
                 'class' => Status::class,
             ])
             ->add('submit', SubmitType::class, ['label' => 'Submit','attr' => ['class' => 'btn btn-primary']])
+            ->add('reset', SubmitType::class, [
+                'label' => 'Reset',
+                'attr' => ['class' => 'btn btn-secondary'],
+            ])
+
         ;
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();

@@ -10,6 +10,8 @@ use App\Form\Ticket\TicketType;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -110,7 +112,7 @@ class TicketController extends AbstractController
 
 
     #[Route('/gestion', name: 'app_gestion_ticket')]
-    public function manageTicket(Request $request, TicketRepository $repository): Response
+    public function manageTicket(Request $request, TicketRepository $repository, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -119,26 +121,46 @@ class TicketController extends AbstractController
         $ticketsFilterForm = $this->createForm(TicketsFilterType::class);
         $ticketsFilterForm->handleRequest($request);
 
-        if ($ticketsFilterForm->isSubmitted() && $ticketsFilterForm->isValid()) {
-            $filters = [
-                'start' => $ticketsFilterForm->get('StartDate')->getData(),
-                'end' => $ticketsFilterForm->get('EndDate')->getData(),
-                'status' => $ticketsFilterForm->get('status')->getData(),
-            ];
+        if ($ticketsFilterForm->isSubmitted()) {
+            // Si le bouton "Réinitialiser" est cliqué
+            if ($ticketsFilterForm->get('reset')->isClicked()) {
+                $request->getSession()->remove('ticket_filters'); // Supprimez les filtres de la session
+                return $this->redirectToRoute('app_gestion_ticket'); // Rechargez la page
+            }
 
-            // Recherchez les tickets filtrés
-            $tickets = $repository->findByFilters($filters, $user, $user->getRoles());
+            // Si le formulaire de filtre est soumis
+            if ($ticketsFilterForm->isValid()) {
+                $filters = [
+                    'start' => $ticketsFilterForm->get('StartDate')->getData(),
+                    'end' => $ticketsFilterForm->get('EndDate')->getData(),
+                    'status' => $ticketsFilterForm->get('status')->getData(),
+                ];
 
-            // Ajoutez les filtres à la session (facultatif, si nécessaire pour la redirection)
-            $request->getSession()->set('ticket_filters', $filters);
+                $query = $repository->findByFiltersQuery($filters, $user, $user->getRoles());
 
-            // Redirection vers la même page avec les résultats
-            return $this->redirectToRoute('app_gestion_ticket');
+                $tickets = $paginator->paginate(
+                    $query,
+                    $request->query->getInt('page', 1),
+                    5
+                );
+
+                //ajout du filtre à la session car probleme de redirection.
+                $request->getSession()->set('ticket_filters', $filters);
+                return $this->redirectToRoute('app_gestion_ticket', [
+                    'page' => $request->query->getInt('page', 1),
+                ]);            }
         }
 
-        // Recherchez les tickets par défaut
         $filters = $request->getSession()->get('ticket_filters', []);
-        $tickets = $repository->findByFilters($filters, $user, $user->getRoles());
+
+        $query = $repository->findByFiltersQuery($filters, $user, $user->getRoles());
+
+        // Recherchez les tickets par défaut
+        $tickets = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            6
+        );
 
         return $this->render('ticket/managed.html.twig', [
             'tickets' => $tickets,
