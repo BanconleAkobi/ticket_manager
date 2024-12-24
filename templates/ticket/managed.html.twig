@@ -23,6 +23,22 @@
                             {{ message }}
                         </div>
                     {% endfor %}
+                    <div class="row mb-5">
+                            {{ formstart(ticketFilterForm) }}
+                                <div class="offset-2  col-8 col-md-3 me-3">
+                                    {{ form_row(ticketFilterForm.StartDate) }}
+                                </div>
+                                <div class="offset-2 col-8 col-md-3 me-3">
+                                    {{ form_row(ticketFilterForm.EndDate) }}
+                                </div>
+                                <div class="offset-2 col-8 col-md-3 me-3">
+                                    {{ form_row(ticketFilterForm.status) }}
+                                </div>
+                                <div class="offset-2 col-8 col-md-3 m-3 me-3">
+                                    {{ form_row(ticketFilterForm.submit) }}
+                                </div>
+                            {{ formend(ticketFilterForm) }}
+                    </div>
                     <div class="row">
                         <div class="col-12 mb-3 mb-lg-5">
 

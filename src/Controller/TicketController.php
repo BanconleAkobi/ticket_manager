@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\TicketStatusHistory;
 use App\Entity\User;
+use App\Form\Ticket\TicketFilterType;
 use App\Form\Ticket\TicketType;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
@@ -113,18 +114,19 @@ class TicketController extends AbstractController
     public function manageTicket(Request $request, TicketRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
         $user = $this->getUser();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $tickets = $repository->findAll();
-        } elseif($this->isGranted('ROLE_TECH_SUPPORT')) {
-            $tickets = $repository->findBy(['assigned_to' => $user]);
+        $ticketsFilterForm = $this->createForm(TicketFilterType::class);
+        if ($request->isMethod('POST')) {
+            $ticketsFilterForm->handleRequest($request);
+            if($ticketsFilterForm->isSubmitted() && $ticketsFilterForm->isValid()) {
+                $tickets = $repository->findByFilters($ticketsFilterForm->getData(), $user, $user->getRoles());
+            }
         }else{
-            $tickets = $repository->findBy(['created_by' => $user]);
+            $tickets = $repository->findByFilters([], $user, $user->getRoles());
         }
 
-        return $this->render('ticket/managed.html.twig', ['tickets' => $tickets]);
+        return $this->render('ticket/managed.html.twig', ['tickets' => $tickets, 'ticketFilterForm' => $ticketsFilterForm->createView()]);
     }
 
 

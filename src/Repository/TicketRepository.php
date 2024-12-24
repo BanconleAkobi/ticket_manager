@@ -40,4 +40,42 @@ class TicketRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    /**
+     * @param $filters
+     * @param $user
+     * @param $roles
+     * @return Ticket|null
+     */
+    public function findByFilters($filters, $user, $roles): ? Ticket
+    {
+               $qb = $this->createQueryBuilder('t');
+
+                // Ajouter des filtres statiques
+                if (isset($filters['status'])) {
+                    $qb->andWhere('t.status = :status')
+                        ->setParameter('status', $filters['status']);
+                }
+
+                if (isset($filters['start']) && isset($filters['end'])) {
+                    $qb->andWhere('t.created_at BETWEEN :start AND :end')
+                        ->setParameter('start', $filters['start'])
+                        ->setParameter('end', $filters['end']);
+                }
+
+                // Gestion des rôles
+                if (in_array('ROLE_ADMIN', $roles)) {
+                    // Pas de filtre supplémentaire, l'administrateur voit tout
+                } elseif (in_array('ROLE_TECH_SUPPORT', $roles)) {
+                    $qb->andWhere('t.assigned_to = :user')
+                        ->setParameter('user', $user);
+                } else {
+                    $qb->andWhere('t.created_by = :user')
+                        ->setParameter('user', $user);
+                }
+
+                $result = $qb->getQuery()->getResult();
+                return $result;
+    }
 }
