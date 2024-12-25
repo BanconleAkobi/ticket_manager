@@ -7,6 +7,7 @@ use App\Form\User\UserType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +28,20 @@ class UserController extends AbstractController
     }
 
     #[Route('/list', name: 'app_admin_user_list')]
-    public function index(UserRepository $repository): Response
+    public function index(Request $request, UserRepository $repository, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $users = $repository->findAll();
+        $query = $repository->findAll();
+
+        $users = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            5
+        );
 
         return $this->render('admin/user_list/index.html.twig', [
             'users' => $users,
+            'page' => $request->query->getInt('page', 1)
         ]);
     }
 

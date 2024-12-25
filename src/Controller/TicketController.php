@@ -10,7 +10,6 @@ use App\Form\Ticket\TicketType;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -148,7 +147,8 @@ class TicketController extends AbstractController
                 $request->getSession()->set('ticket_filters', $filters);
                 return $this->redirectToRoute('app_gestion_ticket', [
                     'page' => $request->query->getInt('page', 1),
-                ]);            }
+                ]);
+            }
         }
 
         $filters = $request->getSession()->get('ticket_filters', []);
