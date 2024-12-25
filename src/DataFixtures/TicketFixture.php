@@ -42,8 +42,6 @@ class TicketFixture extends Fixture implements FixtureGroupInterface
             $ticket->setDeadline($createdAt->modify('+3 days'));
             $manager->persist($ticket);
         }
-        // $product = new Product();
-        // $manager->persist($product);
 
         $manager->flush();
     }
