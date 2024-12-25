@@ -6,7 +6,6 @@ use App\Controller\Exceptions\MailException;
 use App\Entity\User;
 use App\Form\User\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

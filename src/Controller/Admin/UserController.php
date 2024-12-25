@@ -8,7 +8,6 @@ use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,32 +59,32 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            // Update the user roles
-            $roles = [];
-            foreach ($appRoles as $role) {
-                if ($form->get($role)->getData()) {
-                    in_array($role, $roles) ?: $roles[] = $role;
-                    foreach($this->roleRepository->getRolesBelow($role) as $roleBis) {
-                        in_array($roleBis, $roles) ?: $roles[] = $roleBis;
-                    }
-                }
-            }
-            $user->setRoles($roles);
-
-            // Update the status of the user
+            $this->updateUserRoles($form, $user, $appRoles);
             $this->em->flush();
             
             $this->addFlash('success', 'User has been edited.');
 
-            // Redirection
             return $this->redirectToRoute('app_admin_user_list');
         }
-
 
         return $this->render('admin/user_list/edit.html.twig', [
             'submit_message' => 'Update user',
             'edit_user_form' => $form->createView(),
         ]);
+    }
+
+    private function updateUserRoles($form, User $user, array $appRoles): void
+    {
+        $roles = [];
+        foreach ($appRoles as $role) {
+            if ($form->get($role)->getData()) {
+                in_array($role, $roles) ?: $roles[] = $role;
+                foreach($this->roleRepository->getRolesBelow($role) as $roleBis) {
+                    in_array($roleBis, $roles) ?: $roles[] = $roleBis;
+                }
+            }
+        }
+        $user->setRoles($roles);
     }
 
     #[Route('/{id}/delete', name:"app_delete_user")]

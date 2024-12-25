@@ -83,17 +83,17 @@
                                         <table class="table mb-0">
                                             <thead class="small text-uppercase bg-body text-muted">
                                             <tr class="text-center fw-bolder">
-                                                <th>Title</th>
-                                                <th>Status</th>
-                                                <th>Priority</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Priority</th>
                                                 {# pas besoin d'afficher à qui il est assigné si c'est déjà lui #}
                                                 {% if not  is_granted('ROLE_TECH_SUPPORT') %}
-                                                  <th>Assigned to</th>
+                                                  <th scope="col">Assigned to</th>
                                                 {% endif %}
-                                                <th>created at</th>
+                                                <th scope="col">created at</th>
                                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
-                                                    <th>deadline</th>
-                                                    <th>updated at </th>
+                                                    <th scope="col">deadline</th>
+                                                    <th scope="col">updated at </th>
                                                 {% endif %}
                                             </tr>
                                             </thead>
@@ -101,20 +101,20 @@
 
                                                 <tbody>
                                                 <tr class="align-middle text-center ">
-                                                    <th>{{ ticket.title }}</th>
-                                                    <th>{{ ticket.status.value }}</th>
-                                                    <th>{{ ticket.priority.value }}</th>
+                                                    <th scope="row">{{ ticket.title }}</th>
+                                                    <th scope="row">{{ ticket.status.value }}</th>
+                                                    <th scope="row">{{ ticket.priority.value }}</th>
                                                     {% if not  is_granted('ROLE_TECH_SUPPORT') %}
-                                                        <th>{{ ticket.assignedTo }}</th>
+                                                        <th scope="row">{{ ticket.assignedTo }}</th>
                                                     {% endif %}
-                                                    <th>{{ ticket.createdAt|date('Y-m-d') }}</th>
-                                                        <th>{{ ticket.deadline|date('Y-m-d') }}</th>
-                                                        <th>{{ ticket.updatedAt|date('Y-m-d')}} </th>
-                                                    <th>
+                                                    <th scope="row">{{ ticket.createdAt|date('Y-m-d') }}</th>
+                                                        <th scope="row">{{ ticket.deadline|date('Y-m-d') }}</th>
+                                                        <th scope="row">{{ ticket.updatedAt|date('Y-m-d')}} </th>
+                                                    <th scope="row">
                                                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TECH_SUPPORT') %}
-                                                            <a href="{{ path('app_confirm_deleting', {'id': ticket.id, 'entity_name': 'ticket'}) }}" class="fst-italic fa fa-trash" aria-hidden="true"></a> &nbsp;
+                                                            <a href="{{ path('app_confirm_deleting', {'id': ticket.id, 'entity_name': 'ticket'}) }}" class="fst-italic fa fa-trash"><span class="sr-only">Delete</span></a> &nbsp;
                                                         {% endif %}
-                                                        <a href="{{ path('app_ticket_edit', {'id' : ticket.id}) }}" class="fst-italic fas fa-edit"></a>
+                                                        <a href="{{ path('app_ticket_edit', {'id' : ticket.id}) }}" class="fst-italic fas fa-edit"><span class="sr-only">Edit</span></a>
                                                     </th>
                                                 </tr>
                                                 </tbody>
